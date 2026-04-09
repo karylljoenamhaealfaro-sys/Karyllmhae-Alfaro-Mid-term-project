@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALFARO'S PORTFOLIO</title>
+
+<style>
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  display:flex;
+  min-height:100vh;
+  background: linear-gradient(135deg, #040d3f, #e9a7e0);
+  color:#030101;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width:240px;
+  background: linear-gradient(180deg, #f081c5, #9f1dc0);
+  padding:25px 15px;
+  display:flex;
+  flex-direction:column;
+  box-shadow: 4px 0 15px rgba(46, 3, 3, 0.705);
+}
+
+.sidebar h2 {
+  margin-bottom:25px;
+  font-size:1.6em;
+  text-align:center;
+  color:#4ecca3;
+}
+
+.sidebar a {
+  display:block;
+  padding:12px 15px;
+  margin:6px 0;
+  color:#ddd;
+  text-decoration:none;
+  border-radius:10px;
+  transition: all 0.3s ease;
+  position:relative;
+  overflow:hidden;
+}
+
+.sidebar a::before {
+  content:'';
+  position:absolute;
+  left:0;
+  top:0;
+  width:0%;
+  height:100%;
+  background:#4ecca3;
+  z-index:-1;
+  transition:0.3s;
+}
+
+.sidebar a:hover::before {
+  width:100%;
+}
+
+.sidebar a:hover {
+  color:#000;
+  transform:translateX(5px);
+}
+
+/* MAIN */
+.main {
+  flex:1;
+  padding:30px;
+}
+
+/* PAGE */
+.page {
+  display:none;
+}
+
+.active {
+  display:block;
+}
+
+/* HOME BACKGROUND */
+#home {
+
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+}
+
+#home::before {
+  content:'';
+  position:absolute;
+  width:100%;
+  height:100%;
+  background: rgb(238, 83, 173);
+  top:0;
+  left:0;
+}
+
+/* HOME CARD */
+.home-container {
+  position:relative;
+  z-index:1;
+  width:100%;
+  display:flex;
+  justify-content:center;
+}
+
+.home-card {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(15px);
+  padding:40px;
+  border-radius:20px;
+  text-align:center;
+  max-width:500px;
+  width:90%;
+  box-shadow:0 10px 40px rgba(0,0,0,0.5);
+  animation: fadeUp 0.8s ease;
+}
+
+.home-card img {
+  width:140px;
+  height:140px;
+  border-radius:50%;
+  border:4px solid #dbe27a;
+  margin-bottom:15px;
+  transition:0.3s;
+}
+
+.home-card img:hover {
+  transform: scale(1.1) rotate(3deg);
+}
+
+.home-card h1 {
+  font-size:1.8em;
+}
+
+.course {
+  color:#4ecca3;
+  margin-bottom:15px;
+}
+
+.about {
+  font-size:14px;
+  margin-bottom:20px;
+  color:#ddd;
+}
+
+.skills {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
+}
+
+.skills span {
+  background:#4ecca3;
+  color:#000;
+  padding:8px 15px;
+  border-radius:20px;
+  font-size:13px;
+  font-weight:bold;
+  transition:0.3s;
+}
+
+.skills span:hover {
+  transform:scale(1.1);
+}
+
+/* ANIMATION */
+@keyframes fadeUp {
+  from {
+    opacity:0;
+    transform:translateY(30px);
+  }
+  to {
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* CARDS */
+.cards {
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+  gap:20px;
+}
+
+.card {
+  background: rgba(255,255,255,0.05);
+  border-radius:15px;
+  padding:25px 20px;
+  text-align:center;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+  border:1px solid rgba(255,255,255,0.08);
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow:0 10px 25px rgba(0,0,0,0.4);
+}
+
+/* BUTTONS */
+button {
+  padding:10px 20px;
+  border:none;
+  background:#4ecca3;
+  color:#000;
+  border-radius:8px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover {
+  background:#3da785;
+  transform:scale(1.05);
+}
+
+a.viewBtn {
+  display:inline-block;
+  margin-top:10px;
+  padding:10px 20px;
+  background:#4ecca3;
+  color:#000;
+  text-decoration:none;
+  border-radius:8px;
+  font-weight:bold;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  body { flex-direction:column; }
+
+  .sidebar {
+    width:100%;
+    flex-direction:row;
+    overflow-x:auto;
+  }
+
+  .sidebar a {
+    flex:1;
+    text-align:center;
+  }
+
+  .main {
+    padding:20px 10px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <h2>Portfolio</h2>
+  <a onclick="showPage('home')">Home</a>
+  <a onclick="showPage('dashboard')">Dashboard</a>
+  <a onclick="showPage('quiz')">Quiz Upload</a>
+  <a onclick="showPage('lab')">Lab Upload</a>
+  <a onclick="showPage('exam')">Major Exam Upload</a>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<!-- HOME -->
+<div id="home" class="page active">
+  <div class="home-container">
+    <div class="home-card">
+      <img src="5fe1e407-e418-41f9-a7f7-03c966e97f6e.jpg">
+      <h1>ALFARO, KARYLL JOENAMHAE A.</h1>
+      <p class="course">Bachelor Of Science In Computer Science</p>
+      <p class="about">
+        Hi, I'm Karyll, I'm a first year Computer Science student at Cavite State University at Silang Campus.I may have a limited knowledge about coding, but I'm willing and passionate to learn about my course!
+      </p>
+
+      <div class="skills">
+        <span>🎵 Dancing</span>
+        <span>🍳 Cooking</span>
+        <span>💻 HTML</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="page">
+  <h1>Dashboard</h1>
+  <div class="cards">
+    <div class="card"><h3>Quiz 1</h3><a href="cadd45c9-0dc2-4207-8c6e-1661e6b55a07.jpg" target="_blank" class="viewBtn">View Photo</a></div>
+    <div class="card"><h3>Quiz 2</h3><a href="9df364cb-ae27-49df-807c-67fd80cdd947.jpg" target="_blank" class="viewBtn">View Photo</a></div>
+    <div class="card"><h3>Quiz 3</h3><a href="dd8649a2-6476-4bbd-b27e-75056e82e3d2.jpg" target="_blank" class="viewBtn">View Photo</a></div>
+    <div class="card"><h3>Lab Work</h3><a href="f522286d-fa42-44e5-8485-eb7061c689cb.jpg" target="_blank" class="viewBtn">View Photo</a></div>
+    <div class="card"><h3>Major Exam</h3><a href="#" target="_blank" class="viewBtn">View Photo</a></div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div id="quiz" class="page">
+  <h1>Quiz Upload</h1>
+  <div class="cards">
+    <div class="card">
+      <h3>Quiz 1</h3>
+      <input type="file" id="quizFile1">
+      <button onclick="submitQuiz(1)">Submit</button>
+      <p id="quizMsg1"></p>
+    </div>
+
+    <div class="card">
+      <h3>Quiz 2</h3>
+      <input type="file" id="quizFile2">
+      <button onclick="submitQuiz(2)">Submit</button>
+      <p id="quizMsg2"></p>
+    </div>
+
+    <div class="card">
+      <h3>Quiz 3</h3>
+      <input type="file" id="quizFile3">
+      <button onclick="submitQuiz(3)">Submit</button>
+      <p id="quizMsg3"></p>
+    </div>
+  </div>
+</div>
+
+<!-- LAB -->
+<div id="lab" class="page">
+  <h1>Lab Upload</h1>
+  <div class="card">
+    <input type="file" id="labFile">
+    <button onclick="submitLab()">Submit</button>
+    <p id="labMsg"></p>
+  </div>
+</div>
+
+<!-- EXAM -->
+<div id="exam" class="page">
+  <h1>Major Exam Upload</h1>
+  <div class="card">
+    <input type="file" id="examFile">
+    <button onclick="submitExam()">Submit</button>
+    <p id="examMsg"></p>
+  </div>
+</div>
+
+</div>
+
+<script>
+function showPage(pageId){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(pageId).classList.add('active');
+}
+
+function submitQuiz(num){
+  const file = document.getElementById('quizFile'+num).files[0];
+  const msg = document.getElementById('quizMsg'+num);
+
+  if(!file){
+    msg.style.color="red";
+    msg.textContent="Select a file!";
+    return;
+  }
+
+  msg.style.color="lightgreen";
+  msg.textContent="Submitted!";
+  document.querySelector("#dashboard .card:nth-child("+num+") a").href = URL.createObjectURL(file);
+}
+
+function submitLab(){
+  const file = document.getElementById('labFile').files[0];
+  const msg = document.getElementById('labMsg');
+
+  if(!file){
+    msg.style.color="red";
+    msg.textContent="Select a file!";
+    return;
+  }
+
+  msg.style.color="lightgreen";
+  msg.textContent="Submitted!";
+  document.querySelector("#dashboard .card:nth-child(4) a").href = URL.createObjectURL(file);
+}
+
+function submitExam(){
+  const file = document.getElementById('examFile').files[0];
+  const msg = document.getElementById('examMsg');
+
+  if(!file){
+    msg.style.color="red";
+    msg.textContent="Select a file!";
+    return;
+  }
+
+  msg.style.color="lightgreen";
+  msg.textContent="Submitted!";
+  document.querySelector("#dashboard .card:nth-child(5) a").href = URL.createObjectURL(file);
+}
+</script>
+
+</body>
+</html>
